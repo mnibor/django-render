@@ -103,7 +103,7 @@ Procfile           # alternativa startCommand (gunicorn)
 
 ## Limitaciones de Render (por qué este proyecto es sin imágenes)
 
-Esta sección es parte de la demo. Si explicas el proyecto en clase, menciona estos 5 puntos:
+Esta sección es parte de la demo. Si explicas el proyecto en clase, menciona estos 6 puntos:
 
 ### 1. Filesystem efímero — sin `media/` persistente
 Cada deploy, reinicio o escalado borra lo escrito en disco. Un `ImageField` que guarda en `/app/media/` funcionaría 5 minutos y luego daría 404. Por eso el modelo **no tiene imagen**. Si se necesitaran imágenes, hay que usar almacenamiento externo:
@@ -114,8 +114,8 @@ Cada deploy, reinicio o escalado borra lo escrito en disco. Un `ImageField` que 
 ### 2. Sleep en plan Free (cold start)
 Tras 15 min sin tráfico, Render suspende el servicio. El siguiente request tarda 30-50 s en despertar. Es normal en free tier; en plan pago (`Starter`+) no ocurre.
 
-### 3. PostgreSQL Free expira a los 90 días
-La DB free se borra automáticamente a los 90 días (Render avisa por email). Para producción se recomienda Neon, Supabase o Postgres pago de Render. Para la demo es suficiente.
+### 3. PostgreSQL Free: solo 1 DB y expira a los 90 días
+Render solo permite **1 base de datos PostgreSQL gratuita activa por cuenta**. Si intentas crear una segunda (como hace el Blueprint `render.yaml`), fallará con `cannot have more than one active free tier database` y cancelará el deploy del web service. Soluciones: borrar la DB free anterior que no uses, o usar una DB externa gratuita (Neon, Supabase) y setear `DATABASE_URL` manualmente en el Web Service. Además, la DB free se borra automáticamente a los 90 días (Render avisa por email). Para producción se recomienda Neon, Supabase o Postgres pago de Render. Para la demo es suficiente.
 
 ### 4. Variables de entorno, no código por rama
 No se hace `if RENDER: ...`. Se usa `dj-database-url` + `python-decouple`: mismo `settings.py` lee `DATABASE_URL` local (Podman) o inyectada por Render. `main` y `dev` son idénticas en código.
