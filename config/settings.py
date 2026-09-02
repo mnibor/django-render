@@ -10,7 +10,7 @@ SECRET_KEY = decouple_config("SECRET_KEY", default="django-insecure-dev-key-chan
 
 DEBUG = decouple_config("DEBUG", default=True, cast=bool)
 
-ALLOWED_HOSTS = decouple_config("ALLOWED_HOSTS", default="localhost,127.0.0.1", cast=Csv())
+ALLOWED_HOSTS = decouple_config("ALLOWED_HOSTS", default="localhost,127.0.0.1,0.0.0.0", cast=Csv())
 
 # Render injects RENDER_EXTERNAL_HOSTNAME
 RENDER_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
