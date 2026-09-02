@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: django_render
+      POSTGRES_USER: django
+      POSTGRES_PASSWORD: django
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U django -d django_render"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build:
+      context: .
+      dockerfile: Containerfile
+    command: bash -c "python manage.py migrate && python manage.py seed_data || true && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgres://django:django@db:5432/django_render
+      SECRET_KEY: dev-secret-key-not-for-production
+      DEBUG: "true"
+      ALLOWED_HOSTS: "localhost,127.0.0.1,web"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

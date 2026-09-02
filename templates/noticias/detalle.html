@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ articulo.titulo }} — Noticias Tech{% endblock %}
+
+{% block content %}
+<article class="detail">
+  <a class="back-link" href="{% url 'noticias:lista' %}">&larr; Volver al listado</a>
+  <h1 class="detail-title">{{ articulo.titulo }}</h1>
+  <p class="detail-bajada">{{ articulo.bajada }}</p>
+  <div class="detail-meta">
+    <span>Por {{ articulo.autor.get_full_name|default:articulo.autor.username }}</span>
+    <span class="dot">·</span>
+    <time datetime="{{ articulo.fecha_creacion|date:'c' }}">{{ articulo.fecha_creacion|date:"d M Y H:i" }}</time>
+    {% if articulo.fecha_actualizacion != articulo.fecha_creacion %}
+    <span class="dot">·</span>
+    <span>Actualizado {{ articulo.fecha_actualizacion|date:"d M Y H:i" }}</span>
+    {% endif %}
+  </div>
+  <div class="detail-body">
+    {{ articulo.desarrollo|linebreaks }}
+  </div>
+</article>
+{% endblock %}

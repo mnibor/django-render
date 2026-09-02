@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Noticias Tech — Inicio{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>Ultimas noticias</h1>
+  <p class="hero-sub">Tecnologia, IA y cultura digital — actualizacion diaria por nuestros redactores.</p>
+</section>
+
+<div class="articles">
+  {% for articulo in articulos %}
+  <article class="card">
+    <h2 class="card-title"><a href="{{ articulo.get_absolute_url }}">{{ articulo.titulo }}</a></h2>
+    <p class="card-bajada">{{ articulo.bajada }}</p>
+    <div class="card-meta">
+      <span class="author">Por {{ articulo.autor.get_full_name|default:articulo.autor.username }}</span>
+      <span class="dot">·</span>
+      <time datetime="{{ articulo.fecha_creacion|date:'c' }}">{{ articulo.fecha_creacion|date:"d M Y" }}</time>
+    </div>
+  </article>
+  {% empty %}
+  <p>No hay articulos aun. <a href="/admin/">Crea uno desde el admin</a> o corre <code>python manage.py seed_data</code>.</p>
+  {% endfor %}
+</div>
+
+{% if is_paginated %}
+<nav class="pagination" aria-label="Paginacion">
+  {% if page_obj.has_previous %}
+    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&larr; Anterior</a>
+  {% else %}
+    <span class="page-link disabled">&larr; Anterior</span>
+  {% endif %}
+
+  <span class="page-info">Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+  {% if page_obj.has_next %}
+    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente &rarr;</a>
+  {% else %}
+    <span class="page-link disabled">Siguiente &rarr;</span>
+  {% endif %}
+</nav>
+{% endif %}
+{% endblock %}

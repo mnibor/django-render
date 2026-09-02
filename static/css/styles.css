@@ -1,0 +1,167 @@
+:root {
+  --bg: #fafaf7;
+  --surface: #ffffff;
+  --text: #1a1a1e;
+  --muted: #6b7280;
+  --accent: #0f766e;
+  --accent-hover: #115e59;
+  --border: #e5e7eb;
+  --radius: 14px;
+  --max-w: 800px;
+  --font-body: "Nunito", system-ui, -apple-system, sans-serif;
+  --font-heading: "Merriweather", Georgia, serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+
+/* Layout */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+.brand {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.35rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.brand:hover { color: var(--accent); text-decoration: none; }
+.nav { display: flex; gap: 18px; font-size: 0.95rem; font-weight: 600; }
+.nav a { color: var(--muted); }
+.nav a:hover { color: var(--text); }
+
+/* Main */
+.main { padding: 36px 20px 48px; }
+
+/* Hero */
+.hero { margin-bottom: 28px; }
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.hero-sub { color: var(--muted); font-size: 1.02rem; }
+
+/* Cards */
+.articles { display: flex; flex-direction: column; gap: 18px; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.06); transform: translateY(-1px); }
+.card-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+.card-title a { color: var(--text); }
+.card-title a:hover { color: var(--accent); }
+.card-bajada {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-style: italic;
+  color: #374151;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.card-meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.dot { opacity: 0.5; }
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.page-link {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.page-link.disabled { opacity: 0.4; pointer-events: none; }
+.page-info { color: var(--muted); font-size: 0.9rem; }
+
+/* Detail */
+.detail { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 28px 32px; }
+.back-link { font-size: 0.9rem; display: inline-block; margin-bottom: 18px; }
+.detail-title {
+  font-family: var(--font-heading);
+  font-size: 1.9rem;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.detail-bajada {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.08rem;
+  color: #374151;
+  line-height: 1.6;
+  border-left: 3px solid var(--accent);
+  padding-left: 14px;
+  margin-bottom: 16px;
+}
+.detail-meta { font-size: 0.85rem; color: var(--muted); margin-bottom: 24px; display: flex; gap: 8px; flex-wrap: wrap; }
+.detail-body { font-size: 1.02rem; color: #1f2937; }
+.detail-body p { margin-bottom: 1em; }
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 22px 0 32px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.6rem; }
+  .detail-title { font-size: 1.5rem; }
+  .detail { padding: 20px 18px 24px; }
+}
