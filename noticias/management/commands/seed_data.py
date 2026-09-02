@@ -127,7 +127,14 @@ class Command(BaseCommand):
             natalia.is_staff = True
             natalia.save()
 
-        self.stdout.write(f"Redactores: carlos.perez/carlos123, natalia.gomez/natalia123")
+        # Permisos: redactores pueden crear/ver/cambiar articulos
+        from django.contrib.auth.models import Permission
+
+        perms = Permission.objects.filter(codename__in=["add_articulo", "change_articulo", "view_articulo"])
+        for user in (carlos, natalia):
+            user.user_permissions.add(*perms)
+
+        self.stdout.write(f"Redactores: carlos.perez/carlos123, natalia.gomez/natalia123 (is_staff + permisos articulo)")
 
         # Articles: avoid duplicates by title
         autores = [carlos, natalia]

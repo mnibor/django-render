@@ -1,6 +1,18 @@
-from django.views.generic import DetailView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, DetailView, ListView
 
 from .models import Articulo
+
+
+class ArticuloCreateView(LoginRequiredMixin, CreateView):
+    model = Articulo
+    fields = ["titulo", "bajada", "desarrollo"]
+    template_name = "noticias/form.html"
+
+    def form_valid(self, form):
+        # El autor es siempre el usuario autenticado
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
 
 
 class ArticuloListView(ListView):

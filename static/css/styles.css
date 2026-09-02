@@ -57,6 +57,21 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 .nav { display: flex; gap: 18px; font-size: 0.95rem; font-weight: 600; }
 .nav a { color: var(--muted); }
 .nav a:hover { color: var(--text); }
+.nav-user { color: var(--text); font-weight: 700; align-self: center; }
+
+/* Form */
+.form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+.form-title { font-family: var(--font-heading); font-size: 1.6rem; margin-bottom: 6px; }
+.form-subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 18px; }
+.news-form .field { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+.news-form label { font-weight: 700; font-size: 0.92rem; }
+.news-form input, .news-form textarea { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-family: var(--font-body); font-size: 1rem; width: 100%; }
+.news-form textarea { min-height: 110px; resize: vertical; }
+.news-form .field:last-of-type textarea { min-height: 180px; }
+.btn-primary { background: var(--accent); color: white; border: none; border-radius: 999px; padding: 10px 18px; font-weight: 700; cursor: pointer; }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-secondary { margin-left: 10px; font-weight: 600; }
+.errorlist { color: #b91c1c; font-size: 0.9rem; list-style: none; }
 
 /* Main */
 .main { padding: 36px 20px 48px; }
