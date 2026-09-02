@@ -86,12 +86,14 @@ class Command(BaseCommand):
                 "email": "carlos.perez@example.com",
                 "first_name": "Carlos",
                 "last_name": "Perez",
+                "is_staff": True,
             },
         )
         if c_created:
             carlos.set_password("carlos123")
             carlos.first_name = "Carlos"
             carlos.last_name = "Perez"
+            carlos.is_staff = True
             carlos.save()
 
         natalia, n_created = User.objects.get_or_create(
@@ -100,12 +102,14 @@ class Command(BaseCommand):
                 "email": "natalia.gomez@example.com",
                 "first_name": "Natalia",
                 "last_name": "Gomez",
+                "is_staff": True,
             },
         )
         if n_created:
             natalia.set_password("natalia123")
             natalia.first_name = "Natalia"
             natalia.last_name = "Gomez"
+            natalia.is_staff = True
             natalia.save()
 
         for u in (carlos, natalia):
@@ -113,12 +117,14 @@ class Command(BaseCommand):
                 # already set above; ensure
                 pass
 
-        # Fix passwords if existing users had different ones (idempotent)
+        # Fix passwords and staff if existing users had different ones (idempotent)
         if not c_created:
             carlos.set_password("carlos123")
+            carlos.is_staff = True
             carlos.save()
         if not n_created:
             natalia.set_password("natalia123")
+            natalia.is_staff = True
             natalia.save()
 
         self.stdout.write(f"Redactores: carlos.perez/carlos123, natalia.gomez/natalia123")
